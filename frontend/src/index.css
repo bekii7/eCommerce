@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media screen and (min-width: 832px) {
+  .cl-avatarBox {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+.cl-internal-1dauvpw,
+.cl-internal-1hp5nqm {
+  display: none;
+}
+
+.cl-formButtonPrimary {
+  @apply text-sm;
+}
