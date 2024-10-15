@@ -1,8 +1,11 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 import { toast } from "react-toastify";
-import { fixLength } from "../utils";
+import { fixLength, mergeCartItems } from "../utils";
 import { FaMinusCircle } from "react-icons/fa";
+import { toastUpdateConfig } from "../config";
+import { useSupabase } from "../hooks/useSupabase";
+import { getCartItems, updateCartItems } from "../api";
 
 export interface cartItem {
   id: string;
@@ -14,12 +17,14 @@ export interface cartItem {
 interface cartState {
   items: cartItem[];
   size: number;
+  sync?: boolean;
 }
 
 export const CartActions = {
   ADD_ITEM: "add_item",
   REMOVE_ITEM: "remove_item",
   CLEAR_CART: "clear_cart",
+  SET_ITEMS: "set_items",
 };
 
 const cartReducer = (cartState: cartState, action: any) => {
@@ -53,7 +58,6 @@ const cartReducer = (cartState: cartState, action: any) => {
                 name: action.payload.name,
                 price: action.payload.price,
                 quantity: action.payload.quantity,
-                permalink: action.payload.link,
               },
             ],
             size: cartState.size + (action.payload.quantity || 1),
@@ -79,6 +83,13 @@ const cartReducer = (cartState: cartState, action: any) => {
         items: [],
         size: 0,
       };
+    case CartActions.SET_ITEMS: // New case to handle setting items from backend
+      return {
+        items: action.payload.items,
+        size: action.payload.items.reduce((acc: number, item: cartItem) => {
+          return acc + item.quantity;
+        }, 0),
+      };
     default:
       return cartState;
   }
@@ -94,16 +105,23 @@ const loadCartFromLocalStorage = (): cartState => {
 };
 
 const syncCartWithBackend = async (cartState: cartState) => {
-  // TODO: Add fetch/POST logic to sync with backend
-  console.log("Syncing cart with backend:", cartState);
+  const response = await updateCartItems(cartState.items);
+
+  if (!response.ok) {
+    toast.error("Failed to sync cart with backend!");
+  }
 };
 
 export const CartContext = createContext<{
   cartState: cartState;
   cartDispatch: React.Dispatch<any>;
+  syncOnSignIn: () => Promise<void>;
+  resetOnSignOut: () => void;
 }>({
   cartState: { items: [], size: 0 },
   cartDispatch: () => {},
+  syncOnSignIn: async () => {},
+  resetOnSignOut: () => {},
 });
 
 // Helper function to trigger toasts based on action type
@@ -149,16 +167,75 @@ export const CartContextProvider = ({
 
   const toastDispatch = useToastDispatch(cartDispatch);
 
+  const { authenticated } = useSupabase();
+
   // Save cart state to localStorage on every state change
   useEffect(() => {
     saveCartToLocalStorage(cartState);
 
     // Call sync function if authenticated
-    syncCartWithBackend(cartState);
+    if (authenticated) syncCartWithBackend(cartState);
   }, [cartState]);
 
+  const [syncError, setSyncError] = useState(false);
+  const syncOnSignIn = async () => {
+    // Sync cart with backend on sign in
+    const toastId = toast.loading(
+      <div className="text-white">Syncing cart...</div>
+    );
+    try {
+      const response = await getCartItems();
+
+      if (!response.ok) {
+        throw new Error("Failed to sync cart with backend!");
+      }
+
+      const data = await response.json();
+      console.log(data.items);
+
+      if (cartState.size > 0) {
+        cartDispatch({
+          type: CartActions.SET_ITEMS,
+          payload: { items: mergeCartItems(data.items, cartState.items) },
+        });
+      } else {
+        cartDispatch({
+          type: CartActions.SET_ITEMS,
+          payload: { items: [...data.items] },
+        });
+      }
+      toast.update(toastId, {
+        render: "Cart Synced Successfully!",
+        type: "success",
+        ...toastUpdateConfig,
+      });
+    } catch (error) {
+      setSyncError(true);
+      toast.update(toastId, {
+        render: "Failed to sync cart data! Sign in again to resync.",
+        type: "error",
+        ...toastUpdateConfig,
+      });
+    }
+  };
+
+  const resetOnSignOut = () => {
+    if (!syncError) {
+      cartDispatch({ type: CartActions.CLEAR_CART });
+      secureLocalStorage.removeItem("cart");
+      setSyncError(false);
+    }
+  };
+
   return (
-    <CartContext.Provider value={{ cartState, cartDispatch: toastDispatch }}>
+    <CartContext.Provider
+      value={{
+        cartState,
+        cartDispatch: toastDispatch,
+        syncOnSignIn: async () => await syncOnSignIn(),
+        resetOnSignOut,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

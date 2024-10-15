@@ -57,7 +57,7 @@ const BrowsePage = () => {
       discountOnly,
     ],
     async () => {
-      let query = `?search=${searchTerm}`;
+      let query = `search=${searchTerm}`;
       if (selectedCategory) query += `&category=${selectedCategory}`;
       if (minPrice !== null) query += `&min_price=${minPrice}`;
       if (maxPrice !== null) query += `&max_price=${maxPrice}`;

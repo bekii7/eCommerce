@@ -23,10 +23,9 @@ createRoot(document.getElementById("root")!).render(
         autoClose={3000}
         transition={Slide}
         theme={"colored"}
-        limit={2}
+        limit={5}
         hideProgressBar
         closeOnClick
-        newestOnTop
         toastStyle={{
           backgroundColor: "#1f2937",
           border: "1.5px solid #6b7280",
@@ -35,6 +34,7 @@ createRoot(document.getElementById("root")!).render(
         bodyClassName={"flex gap-1"}
         closeButton={false}
         draggable
+        stacked
       />
     </CartContextProvider>
   </QueryClientProvider>

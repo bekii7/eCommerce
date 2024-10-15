@@ -107,3 +107,53 @@ export const placeCustomOrder = async ({
 
   return response;
 };
+
+export const getCartItems = async () => {
+  const response = await fetch(`${baseServerUrl}/api/cart/get-items`, {
+    headers: {
+      authorization: getToken(),
+    },
+  });
+
+  return response;
+};
+
+export const updateCartItems = async (cartItems: cartItem[]) => {
+  const response = await fetch(`${baseServerUrl}/api/cart/update-items`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: getToken(),
+    },
+    body: JSON.stringify({ items: cartItems }),
+  });
+
+  return response;
+};
+
+export const updateUser = async (email?: string, username?: string) => {
+  if (!email && !username)
+    throw new Error("Email and/or username is required!");
+
+  const response = await fetch(`${baseServerUrl}/api/user/update-profile`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: getToken(),
+    },
+    body: JSON.stringify({ email: email, username: username }),
+  });
+
+  return response;
+};
+
+export const deleteUser = async () => {
+  const response = await fetch(`${baseServerUrl}/api/user/delete-account`, {
+    method: "DELETE",
+    headers: {
+      authorization: getToken(),
+    },
+  });
+
+  return response;
+};

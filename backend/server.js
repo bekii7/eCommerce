@@ -9,6 +9,8 @@ import {
   orderRouter,
   deliveryInfoRouter,
   cartRouter,
+  testRouter,
+  userRouter,
 } from "./routes/route.js";
 
 import { errorHandler } from "./middlewares/error.js";
@@ -33,6 +35,8 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/delivery-info", deliveryInfoRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/user", userRouter);
+app.use("/api/test", testRouter);
 
 app.use(errorHandler);
 

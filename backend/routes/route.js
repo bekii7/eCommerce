@@ -11,9 +11,11 @@ import {
 
 import { authMiddleware } from "../middlewares/auth.js";
 import { placeCustomOrder, placeOrder } from "../controllers/order.js";
-import upload from "../middlewares/upload.js";
 import { getInfos, saveInfo } from "../controllers/deliveryInfo.js";
 import { getCart, updateCart } from "../controllers/cart.js";
+import { supabaseAdmin } from "../config/supabase.js";
+import expressAsyncHandler from "express-async-handler";
+import { deleteAccount, updateProfile } from "../controllers/user.js";
 
 // PRODUCT ROUTER
 export const productsRouter = express.Router();
@@ -34,13 +36,18 @@ authRouter.route("/sign-in").get(() => {});
 authRouter.route("/verify-email").get(() => {});
 authRouter.route("/reset-password").get(() => {});
 
+// USER ROUTER
+export const userRouter = express.Router();
+userRouter.use(authMiddleware);
+userRouter.route("/update-profile").post(updateProfile);
+userRouter.route("/delete-account").delete(deleteAccount);
+// userRouter.route("/change-password").post();
+
 // ORDER ROUTER
 export const orderRouter = express.Router();
 orderRouter.use(authMiddleware);
 orderRouter.route("/place-order").post(placeOrder);
-orderRouter
-  .route("/place-custom-order")
-  .post(upload.single("pImage"), placeCustomOrder);
+orderRouter.route("/place-custom-order").post(placeCustomOrder);
 
 // DELIVERY INFO ROUTER
 export const deliveryInfoRouter = express.Router();
@@ -53,3 +60,7 @@ export const cartRouter = express.Router();
 cartRouter.use(authMiddleware);
 cartRouter.route("/get-items").get(getCart);
 cartRouter.route("/update-items").post(updateCart);
+
+// TEST ROUTER
+export const testRouter = express.Router();
+testRouter.route("/").get(expressAsyncHandler(async (req, res) => {}));

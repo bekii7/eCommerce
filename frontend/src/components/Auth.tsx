@@ -4,22 +4,29 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { Auth } from "@supabase/auth-ui-react";
 import { type ViewType } from "@supabase/auth-ui-shared";
+import useCartContext from "../hooks/useCartContext";
 
 const AuthPage = ({ view }: { view?: ViewType }) => {
   const { session, supabase, loading, error } = useSupabase();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { syncOnSignIn } = useCartContext();
+
   useEffect(() => {
+    const syncCart = async () => await syncOnSignIn();
     if (session) navigate(location.state?.from ?? "/");
-    supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        navigate("/sign-in");
-        console.log("Syncing cart on sign-in");
-      } else {
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event) => {
+      if (_event === "SIGNED_IN") {
         navigate(location.state?.from ?? "/");
+        syncCart();
       }
     });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const theme = {

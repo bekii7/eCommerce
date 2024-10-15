@@ -5,7 +5,6 @@ import ProductCardLoading from "./ProductCardLoading";
 import { cleanString } from "../utils";
 import { ClipLoader } from "react-spinners";
 import ErrorMessage from "./ErrorMessage";
-import { baseServerUrl } from "../config";
 import { getCategories, getProducts } from "../api";
 
 interface Product {
@@ -14,7 +13,6 @@ interface Product {
   price: string;
   images: Array<string>;
   category: { id: string | null; name: string };
-  permalink: string;
 }
 
 const PRODUCTS_PER_PAGE = 12;
@@ -59,7 +57,7 @@ const Products = () => {
   } = useInfiniteQuery(
     ["productsH", activeCategory],
     async ({ pageParam = 1 }) => {
-      let query = `${baseServerUrl}/api/products?page=${pageParam}&per_page=${PRODUCTS_PER_PAGE}`;
+      let query = `page=${pageParam}&per_page=${PRODUCTS_PER_PAGE}`;
       if (activeCategory) {
         query += `&category=${activeCategory}`;
       }

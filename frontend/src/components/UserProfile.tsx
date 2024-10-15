@@ -13,6 +13,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
 import { useSupabase } from "../hooks/useSupabase";
+import useCartContext from "../hooks/useCartContext";
+import { toastUpdateConfig } from "../config";
+import Profile from "./Profile";
 
 const UserProfile = ({ iconSize }: { iconSize?: number }) => {
   const navigate = useNavigate();
@@ -20,16 +23,28 @@ const UserProfile = ({ iconSize }: { iconSize?: number }) => {
 
   const { session, supabase } = useSupabase();
   const user = session?.user;
+  const { resetOnSignOut } = useCartContext();
 
   const logout = async () => {
+    const toastId = toast.loading(
+      <div className="text-white">Logging out...</div>
+    );
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      console.error("Error during logout:", error);
-      toast.error("Error during logout. Please try again.");
+      toast.update(toastId, {
+        render: "Error during logout. Please try again.",
+        type: "error",
+        ...toastUpdateConfig,
+      });
     } else {
       navigate("/");
-      toast.success("Successfully logged out!");
+      resetOnSignOut();
+      toast.update(toastId, {
+        render: "Successfully logged out!",
+        type: "success",
+        ...toastUpdateConfig,
+      });
     }
   };
 
@@ -54,15 +69,17 @@ const UserProfile = ({ iconSize }: { iconSize?: number }) => {
 
         {/* Dialog Modal */}
         <DialogContent
-          className="px-2 py-6 bg-white rounded-lg shadow-lg outline-none sm:p-6"
+          className="px-0 py-6 bg-white rounded-lg shadow-lg outline-none sm:p-6 max-h-[95vh] h-full overflow-y-auto"
           aria-describedby=""
         >
           <DialogHeader>
-            <DialogTitle className="pt-1 text-2xl">Edit Profile</DialogTitle>
+            <DialogTitle className="pt-1 text-2xl font-black">Profile</DialogTitle>
           </DialogHeader>
-          {/* Hanko Profile component */}
-          <div className="flex items-center justify-center overflow-y-auto max-h-[28rem]"></div>
-          <DialogFooter className="flex px-4 sm:justify-center">
+          <div className="relative overflow-y-auto max-h-[75vh] px-0 w-full">
+            {/* Profile component */}
+            <Profile />
+          </div>
+          <DialogFooter className="w-full px-4 bg-white sm:justify-center">
             <DialogClose asChild>
               <button
                 className="flex items-center justify-center w-full gap-2 p-2 text-white bg-red-600 rounded-md outline-none hover:bg-red-700"

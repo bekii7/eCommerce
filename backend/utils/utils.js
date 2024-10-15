@@ -2,7 +2,7 @@ const ProductsProp = [
   "id",
   "name",
   "slug",
-  "permalink",
+  // "permalink",
   "price",
   "categories",
   "tags",
@@ -14,7 +14,7 @@ const ProductProp = [
   "id",
   "name",
   "slug",
-  "permalink",
+  // "permalink",
   "price",
   "categories",
   "tags",
@@ -67,4 +67,4 @@ export const filterOrderData = (data, filter) => {
       Object.entries(item).filter(([key]) => filter.includes(key))
     )
   );
-}
+};

@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "./ui/confirm-dialog";
 
-const ConfirmCartClear = ({
+const ConfirmBeforeAction = ({
   title,
   description,
   children,
@@ -23,18 +23,22 @@ const ConfirmCartClear = ({
   description: string;
   children: ReactNode;
   onClick: MouseEventHandler;
-  disabled?: boolean
+  disabled?: boolean;
 }) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger disabled={disabled}>{children}</AlertDialogTrigger>
-      <AlertDialogContent aria-describedby="" className="border-2 rounded-lg outline-none border-slate-300 max-w-96 bg-bg">
+      <AlertDialogTrigger disabled={disabled} className="outline-none">
+        {children}
+      </AlertDialogTrigger>
+      <AlertDialogContent
+        className="max-w-sm bg-white border-2 rounded-lg outline-none"
+      >
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="border border-gray-300 outline-none bg-bg hover:bg-white">
+          <AlertDialogCancel className="border border-gray-300 outline-none bg-gray-50 hover:bg-gray-300/50">
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
@@ -49,4 +53,4 @@ const ConfirmCartClear = ({
   );
 };
 
-export default ConfirmCartClear;
+export default ConfirmBeforeAction;

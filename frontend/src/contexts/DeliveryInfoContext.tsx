@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { DeliveryInfo } from "../types";
 import { getDeliveryInfo } from "../api";
+import { useSupabase } from "../hooks/useSupabase";
 
 type DeliveryInfoContextType = {
   savedDeliveryInfos: DeliveryInfo[];
@@ -37,32 +38,39 @@ export const DeliveryInfoProvider = ({
 
   const triggerRefresh = () => setRefreshKey((prev) => prev + 1); // Increment the refreshKey to trigger refetch
 
+  const { authenticated } = useSupabase();
+
   useEffect(() => {
     const fetchDeliveryInfo = async () => {
       try {
         setIsLoading(true);
-        const response = await getDeliveryInfo();
+        if (authenticated) {
+          const response = await getDeliveryInfo();
 
-        const resData = await response.json();
-        if (!response.ok) {
-          throw new Error(resData.message);
+          const resData = await response.json();
+          if (!response.ok) {
+            throw new Error(resData.message);
+          }
+
+          setSavedDeliveryInfos(
+            resData.data.map((info: DeliveryInfo) => ({
+              ...info,
+              deliveryInstructions: "",
+            }))
+          );
+        } else {
+          setSavedDeliveryInfos([]);
         }
-
-        setSavedDeliveryInfos(
-          resData.data.map((info: DeliveryInfo) => ({
-            ...info,
-            deliveryInstructions: "",
-          }))
-        );
       } catch (e) {
         setError("Failed to load saved delivery infos.");
+        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchDeliveryInfo();
-  }, [refreshKey]); // Refetch when refreshKey changes
+  }, [refreshKey, authenticated]); // Refetch when refreshKey changes
 
   return (
     <DeliveryInfoContext.Provider

@@ -2,7 +2,7 @@ import useCartContext from "../hooks/useCartContext";
 import { deliveryFee, fixLength, priceOfCart } from "../utils";
 import { CartActions } from "../contexts/CartContext";
 import { FiMinus } from "react-icons/fi";
-import ConfirmCartClear from "../components/ConfirmCartClear";
+import ConfirmBeforeAction from "../components/ConfirmBeforeAction";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "../lib/utils";
@@ -63,7 +63,7 @@ const CheckoutPage = () => {
         <section className="col-span-2">
           <div className="flex items-center justify-between">
             <h2 className="mb-4 text-lg font-bold md:text-xl">Order Summary</h2>
-            <ConfirmCartClear
+            <ConfirmBeforeAction
               title="Are you sure?"
               description="This will delete all the items in your cart. This action is not reversible!"
               onClick={() => {
@@ -78,7 +78,7 @@ const CheckoutPage = () => {
               >
                 Clear All
               </span>
-            </ConfirmCartClear>
+            </ConfirmBeforeAction>
           </div>
           <div className="p-6 bg-white rounded-lg shadow-md">
             {cartState.size == 0 ? (

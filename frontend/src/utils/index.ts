@@ -1,3 +1,5 @@
+import { cartItem } from "../contexts/CartContext";
+
 export const fixLength = (str: string, maxLen: number) => {
   if (str.length > maxLen) {
     return str.slice(0, maxLen) + "...";
@@ -42,7 +44,7 @@ export const handleMouseMove = (
 
   const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
   let x = e.clientX - left; // Get x position relative to the image
-  let y = e.clientY - top;  // Get y position relative to the image
+  let y = e.clientY - top; // Get y position relative to the image
 
   const lensSize = 100; // Assuming the lens is 100px in diameter
   const lensRadius = lensSize / 2;
@@ -73,4 +75,36 @@ export const handleMouseLeave = (
   if (lensRef.current) {
     lensRef.current.style.display = "none";
   }
+};
+
+// Helper function to merge cart items
+export const mergeCartItems = (
+  backendItems: cartItem[],
+  localItems: cartItem[]
+) => {
+  const mergedItemsMap = new Map();
+
+  // First, add all local items to the map
+  localItems.forEach((item) => {
+    mergedItemsMap.set(item.id, { ...item });
+  });
+
+  // Then, iterate over backend items
+  backendItems.forEach((backendItem) => {
+    const existingItem = mergedItemsMap.get(backendItem.id);
+
+    if (existingItem) {
+      // Merge the items by summing up the quantities
+      mergedItemsMap.set(backendItem.id, {
+        ...existingItem,
+        quantity: existingItem.quantity + backendItem.quantity,
+      });
+    } else {
+      // If no matching item exists, add it
+      mergedItemsMap.set(backendItem.id, { ...backendItem });
+    }
+  });
+
+  // Convert the Map back to an array
+  return Array.from(mergedItemsMap.values());
 };

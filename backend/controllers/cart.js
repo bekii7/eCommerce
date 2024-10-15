@@ -6,8 +6,6 @@ import { sDatabase } from "../config/supabase.js";
 // @access  Private
 // @role    User
 export const getCart = asynchandler(async (req, res) => {
-  console.log(req.id);
-
   const { data, error } = await sDatabase
     .from("cart_items")
     .select("*")
