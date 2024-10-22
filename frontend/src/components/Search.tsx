@@ -81,8 +81,8 @@ export const SearchSmall = () => {
   return (
     <div className="flex md:hidden">
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger className="p-[0.4rem] rounded-full border shadow-md border-gray-300">
-          <IoIosSearch size={24} />
+        <SheetTrigger className="p-2 border border-gray-300 rounded-full shadow-md">
+          <IoIosSearch size={28} />
         </SheetTrigger>
         <SheetContent
           side="top"

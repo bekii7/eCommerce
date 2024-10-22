@@ -109,8 +109,8 @@ const ProductDetailsPage = () => {
           />
         ) : (
           productData && (
-            <div className="p-12 bg-white shadow-lg w-fit">
-              <div className="flex flex-col gap-12 md:flex-row">
+            <div className="p-4 shadow-lg bg-white sm:p-6 md:p-12 w-fit max-w-[95vw]">
+              <div className="flex flex-col gap-6 md:gap-12 md:flex-row">
                 {/* Left: Image Section */}
                 <div className="flex-1 max-w-xl min-w-[20rem]">
                   {selectedImage && (
@@ -160,10 +160,10 @@ const ProductDetailsPage = () => {
                 {/* Right: Product Info Section */}
                 <div className="flex flex-col flex-1">
                   <div className="mb-4">
-                    <h2 className="mb-2 text-2xl font-medium md:text-3xl">
+                    <h2 className="mb-2 text-xl font-medium sm:text-2xl md:text-3xl">
                       {productData.name}
                     </h2>
-                    <p className="mb-2 text-2xl font-bold text-orange-500">
+                    <p className="mb-2 text-lg font-bold text-orange-500 md:text-2xl">
                       ${productData.price}
                     </p>
                     <p

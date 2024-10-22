@@ -69,7 +69,7 @@ const UserProfile = ({ iconSize }: { iconSize?: number }) => {
 
         {/* Dialog Modal */}
         <DialogContent
-          className="px-0 py-6 bg-white rounded-lg shadow-lg outline-none sm:p-6 max-h-[95vh] h-full overflow-y-auto"
+          className="px-0 py-6 bg-white rounded-lg shadow-lg outline-none sm:p-6 max-h-[75vh] sm:max-h-[85vh] h-full overflow-y-auto"
           aria-describedby=""
         >
           <DialogHeader>

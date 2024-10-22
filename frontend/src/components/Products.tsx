@@ -122,9 +122,6 @@ const Products = () => {
             <span className="text-lg font-bold sm:text-xl">
               No products available :(
             </span>
-            <span className="text-sm font-medium sm:text-base">
-              Please come back later!
-            </span>
           </div>
         )}
 

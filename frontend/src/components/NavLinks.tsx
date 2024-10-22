@@ -38,7 +38,7 @@ export const NavLinksMobile = () => {
     <div className="flex lg:hidden">
       <Sheet>
         <SheetTrigger className="outline-none">
-          <FiMenu size={24} />
+          <FiMenu size={28} />
         </SheetTrigger>
         <SheetContent
           aria-describedby=""

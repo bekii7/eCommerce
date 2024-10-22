@@ -153,7 +153,7 @@ const TrendingItems = () => {
 
       {/* Text Content */}
       <div className="flex flex-col items-center gap-8 lg:items-end lg:w-1/2 lg:pr-16 max-lg:py-6">
-        <h1 className="text-5xl font-bold xl:text-6xl">Trending Items</h1>
+        <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl xl:text-6xl">Trending Items</h1>
         <p className="w-4/5 font-light text-center lg:text-end">
           Discover the latest trends in fashion with our exclusive collection.
           Whether you're looking for casual elegance or bold statements, we have
