@@ -20,13 +20,12 @@ dotenv.config({ path: [".env.local", ".env"] });
 const port = process.env.PORT || 5000;
 const app = express();
 
-app
-  .use
-  // cors({
-  //   origin: "http://localhost:5173", // replace with your frontend's origin
-  //   credentials: true,
-  // })
-  ();
+app.use(
+  cors({
+    origin: "http://localhost:5173", // replace with your frontend's origin
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
