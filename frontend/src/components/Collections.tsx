@@ -78,8 +78,12 @@ const Collections = () => {
         {/* Show a styled container when collections is empty */}
         {!productsLoading && !isError && products.length === 0 && (
           <div className="flex flex-col items-center justify-center w-full gap-1 bg-gray-200 border border-gray-300 rounded-lg col-span-full">
-            <span className="text-xl font-bold">No new collection :(</span>
-            <span className="font-medium">Please come back later!</span>
+            <span className="text-lg font-bold sm:text-xl">
+              No new collection :(
+            </span>
+            <span className="text-sm font-medium sm:text-base">
+              Please come back later!
+            </span>
           </div>
         )}
       </div>
