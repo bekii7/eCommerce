@@ -118,7 +118,7 @@ const Products = () => {
       {!productsLoading &&
         !isError &&
         productPages?.pages.flat().length === 0 && (
-          <div className="flex flex-col items-center justify-center w-full gap-1 bg-gray-200 border border-gray-300 rounded-lg col-span-full">
+          <div className="flex flex-col items-center justify-center w-full gap-1 p-6 mt-4 bg-gray-200 border border-gray-300 rounded-lg min-h-64">
             <span className="text-xl font-bold">No products available :(</span>
             <span className="font-medium">Please come back later!</span>
           </div>

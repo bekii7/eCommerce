@@ -191,7 +191,6 @@ export const CartContextProvider = ({
       }
 
       const data = await response.json();
-      console.log(data.items);
 
       if (cartState.size > 0) {
         cartDispatch({

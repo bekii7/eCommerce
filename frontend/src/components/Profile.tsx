@@ -96,7 +96,6 @@ const Profile = () => {
     const deleteToast = toast.loading("Deleting account...");
     const response = await deleteUser();
     if (!response.ok) {
-      console.log(await response.json());
       toast.update(deleteToast, {
         render: "Failed to delete account",
         type: "error",
