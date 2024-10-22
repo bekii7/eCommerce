@@ -54,7 +54,7 @@ const Collections = () => {
           <ErrorMessage
             title="Oops! Something went wrong."
             description="Sorry, we couldn't load the new collection at the moment. Please check
-              your connection or try again later."
+              your internet connection or try again later."
             className="col-span-full"
             retry={refetch}
           />

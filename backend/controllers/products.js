@@ -1,6 +1,11 @@
 import asynchandler from "express-async-handler";
 import wc from "../config/woocommerce.js";
-import { filterProductsData, filterProductData } from "../utils/utils.js";
+import {
+  filterProductsData,
+  filterProductData,
+  filterTagData,
+  getTagIdByName,
+} from "../utils/utils.js";
 
 // @desc    Get products
 // @route   GET /api/products
@@ -46,8 +51,15 @@ export const getProduct = asynchandler(async (req, res) => {
 // @role    User
 export const getNewCol = asynchandler(async (req, res) => {
   try {
-    const response = await wc.get("products", { tag: "190" });
-    res.status(200).json(filterProductsData(response.data));
+    const tagsResponse = await wc.get("products/tags");
+    const newTagId = getTagIdByName(tagsResponse.data, "new");
+
+    if (newTagId) {
+      const response = await wc.get("products", { tag: newTagId });
+      res.status(200).json(filterProductsData(response.data));
+    } else {
+      res.status(404).json({ message: "New tag not found" });
+    }
   } catch (error) {
     throw new Error(error);
   }
@@ -59,8 +71,15 @@ export const getNewCol = asynchandler(async (req, res) => {
 // @role    User
 export const getTrending = asynchandler(async (req, res) => {
   try {
-    const response = await wc.get("products", { tag: "191" });
-    res.status(200).json(filterProductsData(response.data));
+    const tagsResponse = await wc.get("products/tags");
+    const trendingTagId = getTagIdByName(tagsResponse.data, "trending");
+
+    if (trendingTagId) {
+      const response = await wc.get("products", { tag: trendingTagId });
+      res.status(200).json(filterProductsData(response.data));
+    } else {
+      res.status(404).json({ message: "Trending tag not found" });
+    }
   } catch (error) {
     throw new Error(error);
   }
@@ -73,7 +92,7 @@ export const getTrending = asynchandler(async (req, res) => {
 export const getTags = asynchandler(async (req, res) => {
   try {
     const response = await wc.get("products/tags");
-    res.status(200).json(filterProductsData(response.data));
+    res.status(200).json(filterTagData(response.data));
   } catch (error) {
     throw new Error(error);
   }

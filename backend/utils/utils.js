@@ -29,6 +29,8 @@ const ProductProp = [
 
 const CategoryProp = ["id", "name", "slug", "description", "image"];
 
+const TagProp = ["id", "name", "slug"];
+
 export const filterProductsData = (data, filter = ProductsProp) => {
   // modify the images prop to be a list of srcs
   data.forEach((item) => {
@@ -67,4 +69,17 @@ export const filterOrderData = (data, filter) => {
       Object.entries(item).filter(([key]) => filter.includes(key))
     )
   );
+};
+
+export const filterTagData = (data, filter = TagProp) => {
+  return data.map((item) =>
+    Object.fromEntries(
+      Object.entries(item).filter(([key]) => filter.includes(key))
+    )
+  );
+};
+
+export const getTagIdByName = (tags, tagName) => {
+  const tag = tags.find((t) => t.name.toLowerCase() === tagName.toLowerCase());
+  return tag ? tag.id : null;
 };
