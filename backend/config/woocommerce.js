@@ -1,6 +1,8 @@
 import pkg from "@woocommerce/woocommerce-rest-api";
 const WooCommerceRestApi = pkg.default;
 
+import https from "https";
+
 import dotenv from "dotenv";
 dotenv.config({ path: [".env.local", ".env"] });
 
@@ -18,7 +20,7 @@ const wc = new WooCommerceRestApi({
   consumerKey,
   consumerSecret,
   version: "wc/v3", // WooCommerce WP REST API version
-  verifySsl: false,
+  axiosConfig: { httpsAgent: new https.Agent({ rejectUnauthorized: false }) },
 });
 
 export default wc;

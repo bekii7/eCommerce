@@ -108,12 +108,21 @@ const Products = () => {
       {/* Error State Handling */}
       {isError && (
         <ErrorMessage
-          title="Failed to Load Products"
+          title="Oops! Something went wrong."
           description="Sorry, we are unable to display the products at the moment. Please
             check your internet connection or try again later."
           retry={refetch}
         />
       )}
+
+      {!productsLoading &&
+        !isError &&
+        productPages?.pages.flat().length === 0 && (
+          <div className="flex flex-col items-center justify-center w-full gap-1 bg-gray-200 border border-gray-300 rounded-lg col-span-full">
+            <span className="text-xl font-bold">No products available :(</span>
+            <span className="font-medium">Please come back later!</span>
+          </div>
+        )}
 
       {/* Products Grid */}
       {!isError && (

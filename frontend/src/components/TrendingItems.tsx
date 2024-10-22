@@ -105,6 +105,14 @@ const TrendingItems = () => {
                 </span>
               </div>
             </CarouselItem>
+          ) : products.length === 0 ? (
+            // Empty State
+            <CarouselItem>
+              <div className="flex flex-col items-center justify-center w-full gap-2 text-center bg-gray-200 h-96 rounded-2xl">
+                <span className="text-lg font-bold">No Trending Items :(</span>
+                <span className="font-medium">Come back later!</span>
+              </div>
+            </CarouselItem>
           ) : (
             // Loaded State
             products.map((product: any) => (

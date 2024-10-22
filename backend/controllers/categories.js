@@ -7,11 +7,10 @@ import { filterCategoryData } from "../utils/utils.js";
 // @access  Public
 // @role    User
 export const getCategories = asynchandler(async (req, res) => {
-  wc.get("products/categories")
-    .then((response) => {
-      res.status(200).json(filterCategoryData(response.data));
-    })
-    .catch((error) => {
-      res.status(500).json(error);
-    });
+  try {
+    const response = await wc.get("products/categories");
+    res.status(200).json(filterCategoryData(response.data));
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });

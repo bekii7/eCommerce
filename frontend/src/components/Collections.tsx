@@ -53,7 +53,7 @@ const Collections = () => {
         {isError && (
           <ErrorMessage
             title="Oops! Something went wrong."
-            description="We couldn't load the new collection at the moment. Please check
+            description="Sorry, we couldn't load the new collection at the moment. Please check
               your connection or try again later."
             className="col-span-full"
             retry={refetch}
@@ -74,6 +74,14 @@ const Collections = () => {
               collection
             />
           ))}
+
+        {/* Show a styled container when collections is empty */}
+        {!productsLoading && !isError && products.length === 0 && (
+          <div className="flex flex-col items-center justify-center w-full gap-1 bg-gray-200 border border-gray-300 rounded-lg col-span-full">
+            <span className="text-xl font-bold">No new collection :(</span>
+            <span className="font-medium">Please come back later!</span>
+          </div>
+        )}
       </div>
     </div>
   );
