@@ -18,6 +18,7 @@ const wc = new WooCommerceRestApi({
   consumerKey,
   consumerSecret,
   version: "wc/v3", // WooCommerce WP REST API version
+  verifySsl: false,
 });
 
 export default wc;
