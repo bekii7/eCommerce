@@ -21,7 +21,7 @@ const AboutPage = () => {
           </div>
 
           {/* Info Section */}
-          <div className="mt-8 md:mt-0 md:w-1/2 md:ml-12">
+          <div className="mt-8 w-full md:mt-0 md:w-1/2 md:ml-12">
             <h2 className="mb-4 text-3xl font-semibold text-gray-800">
               Welcome to BER
             </h2>
