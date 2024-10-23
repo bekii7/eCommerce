@@ -3,7 +3,7 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 const AboutPage = () => {
   return (
     <div className="py-6">
-      <div className="flex flex-col items-center justify-center w-full px-2 sm:px-4 md:px-6 lg:px-12">
+      <div className="flex flex-col items-center justify-center w-full px-4 sm:px-6 md:px-12">
         {/* Section Title */}
         <h1 className="mb-8 text-4xl font-bold text-center text-gray-800">
           About Us
