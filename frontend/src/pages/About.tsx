@@ -3,14 +3,14 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 const AboutPage = () => {
   return (
     <div className="py-6">
-      <div className="flex flex-col items-center justify-center max-w-[95vw] md:max-w-[90vw] px-2">
+      <div className="flex flex-col items-center justify-center w-full px-2 sm:px-4 md:px-6 lg:px-12">
         {/* Section Title */}
         <h1 className="mb-8 text-4xl font-bold text-center text-gray-800">
           About Us
         </h1>
         
         {/* Content Container */}
-        <div className="flex flex-col items-center justify-between p-4 sm:p-6 md:p-8 bg-white rounded-lg shadow-lg md:flex-row w-full">
+        <div className="flex flex-col items-center justify-between p-4 sm:p-6 md:p-8 bg-white rounded-lg shadow-lg md:flex-row">
           {/* Image Section */}
           <div className="flex justify-center md:w-1/2">
             <img
