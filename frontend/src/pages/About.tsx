@@ -10,7 +10,7 @@ const AboutPage = () => {
         </h1>
         
         {/* Content Container */}
-        <div className="flex flex-col items-center justify-between p-4 sm:p-6 md:p-8 bg-white rounded-lg shadow-lg md:flex-row w-full max-w-[95vw] md:max-w-[85vw]">
+        <div className="flex flex-col items-center justify-between p-4 sm:p-6 md:p-8 bg-white rounded-lg shadow-lg md:flex-row w-full mx-1 md:max-w-[85vw]">
           {/* Image Section */}
           <div className="flex justify-center md:w-1/2">
             <img
