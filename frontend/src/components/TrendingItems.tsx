@@ -1,3 +1,4 @@
+mn
 import {
   Carousel,
   CarouselContent,
@@ -126,7 +127,7 @@ const TrendingItems = () => {
                     className="object-cover w-full shadow-lg rounded-2xl h-96 2xl:h-[32rem]"
                   />
                   {/* Product Title Overlay */}
-                  <div className="absolute bottom-0 w-full p-4 text-sm text-center text-white transition duration-300 bg-gray-900 bg-opacity-50 rounded-b-2xl group-hover:bg-opacity-90 md:text-base">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-sm text-center text-white transition duration-300 bg-gray-900 bg-opacity-50 rounded-b-2xl group-hover:bg-opacity-90 md:text-base">
                     {product.name}
                   </div>
                 </Link>
