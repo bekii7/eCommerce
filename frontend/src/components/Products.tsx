@@ -90,11 +90,11 @@ const Products = () => {
   return (
     <div id="products" className="relative p-6 overflow-hidden">
       {/* Category Filter Buttons */}
-      <div className="flex items-center gap-4 overflow-x-auto border-b-2 md:self-start text-nowrap lg:pb-1">
+      <div className="flex items-center gap-4 overflow-x-auto border-b-2 md:self-start lg:pb-1">
         {categories.map((category) => (
           <button
             key={category.id}
-            className={`px-6 py-1.5 mb-3 font-light w-max rounded-md shadow-md ${
+            className={`px-6 py-1.5 mb-3 font-light text-nowrap w-max rounded-md shadow-md ${
               activeCategory === category.id ? active : inActive
             }`}
             onClick={() => handleCategoryFilter(category.id)}
