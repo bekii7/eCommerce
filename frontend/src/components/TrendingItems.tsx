@@ -1,4 +1,3 @@
-mn
 import {
   Carousel,
   CarouselContent,
