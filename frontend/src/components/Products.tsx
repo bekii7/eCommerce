@@ -94,7 +94,7 @@ const Products = () => {
         {categories.map((category) => (
           <button
             key={category.id}
-            className={`px-6 py-1.5 mb-3 font-light text-nowrap w-max rounded-md shadow-md ${
+            className={`px-6 py-1.5 mb-3 font-light text-nowrap w-full rounded-md shadow-md ${
               activeCategory === category.id ? active : inActive
             }`}
             onClick={() => handleCategoryFilter(category.id)}
