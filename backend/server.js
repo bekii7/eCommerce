@@ -21,11 +21,10 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(
-  // cors({
-  //   origin: "http://localhost:5173", // replace with your frontend's origin
-  //   credentials: true,
-  // })
-  cors()
+  cors({
+    origin: "https://onlineshet.netlify.app",
+    credentials: false,
+  })
 );
 app.use(cookieParser());
 app.use(express.json());
