@@ -32,29 +32,31 @@ const SearchInput = ({
         id="search"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="py-2 pl-6 pr-2 font-light transition-all border-gray-400 outline-none cursor-pointer lg:w-[16rem] xl:w-[24rem] rounded-s-full placeholder:text-black focus:cursor-auto border-s border-y focus:border-orange-400 peer"
+        className="py-2 pl-6 pr-2 font-light transition-all border-gray-400 outline-none cursor-pointer w-[12rem] sm:w-[14rem] lg:w-[16rem] xl:w-[24rem] rounded-s-full placeholder:text-black focus:cursor-auto border-s border-y focus:border-orange-400 peer"
         placeholder="Search"
       />
 
-      {/* "X" Button to Clear Input */}
-      {searchQuery && (
-        <button
-          type="button"
-          className="absolute right-[3rem] p-1 text-gray-500 hover:text-orange-600 outline-none duration-300"
-          onClick={() => setSearchQuery("")}
-        >
-          <IoIosClose size={32} />
-        </button>
-      )}
+      <div className="relative flex items-center px-1 py-2 transition-all bg-white border-gray-400 border-e border-y peer-focus:border-orange-400 rounded-e-full">
+        {/* "X" Button to Clear Input */}
+        {searchQuery && (
+          <button
+            type="button"
+            className="absolute p-2 text-gray-500 duration-300 bg-transparent outline-none right-8 hover:text-orange-600"
+            onClick={() => setSearchQuery("")}
+          >
+            <IoIosClose size={32} />
+          </button>
+        )}
 
-      {/* Submit/Search Button */}
-      <button
-        type="submit"
-        className="bg-white py-2 pl-2.5 pr-4 border-e border-y border-gray-400 peer-focus:border-orange-400 transition-all rounded-e-full"
-        onClick={sheetControl}
-      >
-        <IoIosSearch size={24} />
-      </button>
+        {/* Submit/Search Button */}
+        <button
+          type="submit"
+          className="pl-2.5 pr-4 outline-none"
+          onClick={sheetControl}
+        >
+          <IoIosSearch size={24} />
+        </button>
+      </div>
     </form>
   );
 };

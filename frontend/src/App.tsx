@@ -18,7 +18,6 @@ import ProductDetailsPage from "./pages/ProductDetails";
 import CustomOrderPage from "./pages/CustomOrder";
 import BrowsePage from "./pages/Browse";
 
-import "./styles/auth.css";
 import AuthErrorPage from "./pages/AuthError";
 
 function App() {

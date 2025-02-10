@@ -22,7 +22,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://onlineshet.netlify.app",
+    origin: [
+      "https://onlineshet.netlify.app",
+      "http://localhost:5173",
+      "http://192.168.1.5:5173",
+    ],
     credentials: false,
   })
 );

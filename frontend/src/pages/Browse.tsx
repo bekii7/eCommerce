@@ -99,6 +99,7 @@ const BrowsePage = () => {
             aria-describedby=""
             side="left"
             className="flex flex-col max-w-xs py-12 overflow-x-hidden overflow-y-auto bg-white outline-none"
+            onOpenAutoFocus={(e) => e.preventDefault()}
           >
             <SheetTitle className="text-lg font-semibold">Filters</SheetTitle>
             <SearchDefault sheetControl={() => setSheetOpen(false)} />
